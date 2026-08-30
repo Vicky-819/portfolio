@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+:root {
+  --ivory: #f3eee6;
+  --paper: #ebe6db;
+  --ink: #1c1814;
+  --line: #d6cfc3;
+  --accent: #8f4b38;
+  --tone-terracotta: #d8c1b3;
+  --tone-blue: #c5d0d6;
+  --tone-sage: #c5d0c3;
+  --tone-ochre: #d8ccb0;
+  --tone-terracotta-mark: #b07a66;
+  --tone-blue-mark: #7e93a0;
+  --tone-sage-mark: #7d9179;
+  --tone-ochre-mark: #b39d63;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-ivory: var(--ivory);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-tone-terracotta: var(--tone-terracotta);
+  --color-tone-blue: var(--tone-blue);
+  --color-tone-sage: var(--tone-sage);
+  --color-tone-ochre: var(--tone-ochre);
+  --color-tone-terracotta-mark: var(--tone-terracotta-mark);
+  --color-tone-blue-mark: var(--tone-blue-mark);
+  --color-tone-sage-mark: var(--tone-sage-mark);
+  --color-tone-ochre-mark: var(--tone-ochre-mark);
+  --font-sans: var(--font-instrument-sans);
+  --font-serif: var(--font-instrument-serif);
+}
+
+html {
+  background: var(--ivory);
+}
+
+body {
+  background-color: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-sans), "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  letter-spacing: -0.011em;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+.font-serif {
+  font-family: var(--font-serif), "Songti SC", "Noto Serif SC", serif;
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 46%, transparent);
+}
+
+.meta {
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 40%, transparent);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translate3d(0, 1.1rem, 0);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.95s var(--ease-out) both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.page-enter {
+  animation: page-enter 0.55s var(--ease-out) both;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, var(--ivory));
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal-up,
+  .reveal-up.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .rise-in {
+    animation: none;
+  }
+
+  .page-enter {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
